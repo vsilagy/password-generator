@@ -1,6 +1,6 @@
 # Passowrd generator
 
-A password generator appp built with React, Tailwind and Vite
+A password generator app built with React, Tailwind and Vite
 
 [Live Preview]()
 
