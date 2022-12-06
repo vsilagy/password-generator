@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+	font-family: 'JetBrainsMono';
+	src: local('Atkinson Hyperlegible'), local('AtkinsonHyperlegible'),
+		url('./fonts/JetBrainsMono-VariableFont_wght.ttf')
+			format('truetype');
+	font-display: swap;
+}
+font-face {
+	font-family: 'JetBrainsMono Italic';
+	font-style: italic;
+	src: local('Atkinson Hyperlegible'), local('AtkinsonHyperlegible'),
+		url('./fonts/JetBrainsMono-Italic-VariableFont_wght.ttf')
+			format('truetype');
+	font-display: swap;
+}
