@@ -7,6 +7,7 @@ module.exports = {
 				neonGreen: '#A4FFAF',
 				darkGray: '#24232C',
 				lightGray: '#817D92',
+				altWhite: '#E6E5EA',
 				jetBlack: '#18171F',
 				weakRed: '#F64A4A',
 				weakOrange: '#FB7C58',

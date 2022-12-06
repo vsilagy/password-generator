@@ -1,6 +1,12 @@
+import Form from './components/Form';
+import Footer from './components/Footer';
+
 function App() {
 	return (
-		<div className="text-red-500 font-bold">Password generator</div>
+		<main className="h-screen w-screen flex flex-col items-center justify-between bg-jetBlack">
+			<Form />
+			<Footer />
+		</main>
 	);
 }
 
