@@ -4,13 +4,13 @@ let numbers = '0123456789';
 let symbols = '!@#$%^&*-_=+?';
 
 const createPassword = (
-	length,
-	isUppercase,
-	isLowercase,
-	isNumber,
-	isSymbol,
+	length: number,
+	isUppercase: boolean,
+	isLowercase: boolean,
+	isNumber: boolean,
+	isSymbol: boolean,
 ) => {
-	let chars = '';
+	let chars: string = '';
 	isUppercase ? (chars += uppercase) : '';
 	isLowercase ? (chars += lowercase) : '';
 	isNumber ? (chars += numbers) : '';
@@ -18,7 +18,7 @@ const createPassword = (
 	return generatePassword(length, chars);
 };
 
-const generatePassword = (length, chars) => {
+const generatePassword = (length: number, chars: string) => {
 	let password = '';
 	for (let i = 0; i < length; i++) {
 		password += chars.charAt(

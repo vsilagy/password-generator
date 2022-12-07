@@ -1,22 +1,24 @@
-import { useState } from 'react';
+import { useState, ChangeEvent, MouseEventHandler } from 'react';
 import { FaCopy, FaArrowRight } from 'react-icons/fa';
 import createPassword from './password';
 const Form = () => {
-	const [password, setPassword] = useState('');
-	const [length, SetLength] = useState(12);
-	const [isUppercase, setIsUppercase] = useState(true);
-	const [isLowercase, setIsLowercase] = useState(true);
-	const [isNumber, setIsNumber] = useState(true);
-	const [isSymbol, setIsSymbol] = useState(false);
+	const [password, setPassword] = useState<string>('');
+	const [length, SetLength] = useState<number>(12);
+	const [isUppercase, setIsUppercase] = useState<boolean>(true);
+	const [isLowercase, setIsLowercase] = useState<boolean>(true);
+	const [isNumber, setIsNumber] = useState<boolean>(true);
+	const [isSymbol, setIsSymbol] = useState<boolean>(false);
 	// const [passwordOptions, setPasswordOptions] = useState({
 	// 	uppercase: true,
 	// 	lowercase: true,
 	// 	numbers: true,
 	// 	symbols: false,
 	// });
-	const handlePasswordGenerate = (e) => {
-		e.preventDefault();
-
+	const handlePasswordGenerate = (
+		event: React.MouseEvent<HTMLButtonElement>,
+		value?: string,
+	) => {
+		event.preventDefault();
 		let newPassword = createPassword(
 			length,
 			isUppercase,
@@ -26,7 +28,10 @@ const Form = () => {
 		);
 		setPassword(newPassword);
 	};
-
+	const handleLength = (event: ChangeEvent<HTMLInputElement>) => {
+		let value = event.target.value;
+		SetLength(parseInt(value));
+	};
 	const handleCopy = () => {
 		if (password.length > 8) {
 			navigator.clipboard.writeText(password);
@@ -69,7 +74,7 @@ const Form = () => {
 					min={8}
 					max={30}
 					value={length}
-					onChange={(e) => SetLength(e.target.value)}
+					onChange={handleLength}
 					className="accent-neonGreen mb-2"
 				/>
 				<div>

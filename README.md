@@ -1,4 +1,4 @@
-# Passowrd generator
+# Password generator
 
 A password generator app built with React, Tailwind and Vite
 
@@ -21,3 +21,5 @@ A password generator app built with React, Tailwind and Vite
 - [Netlify](https://www.netlify.com/)
 
 ### Resources
+
+- updated to TSX
