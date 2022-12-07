@@ -8,8 +8,13 @@ const Form = () => {
 	const [isLowercase, setIsLowercase] = useState(true);
 	const [isNumber, setIsNumber] = useState(true);
 	const [isSymbol, setIsSymbol] = useState(false);
-
-	const handleSubmit = (e) => {
+	// const [passwordOptions, setPasswordOptions] = useState({
+	// 	uppercase: true,
+	// 	lowercase: true,
+	// 	numbers: true,
+	// 	symbols: false,
+	// });
+	const handlePasswordGenerate = (e) => {
 		e.preventDefault();
 
 		let newPassword = createPassword(
@@ -21,15 +26,15 @@ const Form = () => {
 		);
 		setPassword(newPassword);
 	};
-	// const handleCopy = () => {
-	// 	if (result) {
-	// 		navigator.clipboard.writeText(result);
-	// 	}
-	// };
+
+	const handleCopy = () => {
+		if (password.length > 8) {
+			navigator.clipboard.writeText(password);
+		}
+	};
+
 	return (
-		<form
-			onSubmit={handleSubmit}
-			className="flex flex-col gap-4 sm:gap-6 w-80 sm:w-[28rem] mt-24 sm:mt-40 text-altWhite">
+		<form className="flex flex-col gap-4 sm:gap-6 w-[21rem] sm:w-[31rem] mt-24 sm:mt-40 text-altWhite">
 			<h1 className="text-center text-lg sm:text-xl text-lightGray ">
 				Password generator
 			</h1>
@@ -39,10 +44,14 @@ const Form = () => {
 					placeholder="P4$W0rD!"
 					value={password}
 					readOnly
-					className="text-2xl sm:text-3xl outline-none border-none placeholder:text-lightGray text-altWhite bg-darkGray w-full"
+					className="text-base sm:text-2xl outline-none border-none placeholder:text-lightGray text-altWhite bg-darkGray w-full"
 				/>
-				<button className="px-2">
-					<FaCopy className="text-neonGreen" size={20} />
+				<button>
+					<FaCopy
+						onClick={handleCopy}
+						className="text-neonGreen -mr-2"
+						size={20}
+					/>
 				</button>
 			</div>
 			<div className="flex flex-col gap-4 sm:gap-5 p-4 sm:p-5 bg-darkGray">
@@ -58,7 +67,7 @@ const Form = () => {
 					name="password-range"
 					type="range"
 					min={8}
-					max={42}
+					max={30}
 					value={length}
 					onChange={(e) => SetLength(e.target.value)}
 					className="accent-neonGreen mb-2"
@@ -118,6 +127,7 @@ const Form = () => {
 					<p className="text-altWhite sm:text-lg">Medium</p>
 				</div>
 				<button
+					onClick={handlePasswordGenerate}
 					type="submit"
 					className="w-full flex items-center justify-center gap-2 p-4 text-darkGray bg-neonGreen font-bold uppercase">
 					Generate <FaArrowRight />
