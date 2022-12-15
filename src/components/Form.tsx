@@ -1,26 +1,21 @@
-import { useState, ChangeEvent, MouseEventHandler } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { FaCopy, FaArrowRight } from 'react-icons/fa';
 import createPassword from './password';
 const Form = () => {
 	const [password, setPassword] = useState<string>('');
-	const [length, SetLength] = useState<number>(12);
+	const [range, setRange] = useState<number>(12);
+	const [strength, setStrength] = useState<string>('Weak');
 	const [isUppercase, setIsUppercase] = useState<boolean>(true);
 	const [isLowercase, setIsLowercase] = useState<boolean>(true);
-	const [isNumber, setIsNumber] = useState<boolean>(true);
+	const [isNumber, setIsNumber] = useState<boolean>(false);
 	const [isSymbol, setIsSymbol] = useState<boolean>(false);
-	// const [passwordOptions, setPasswordOptions] = useState({
-	// 	uppercase: true,
-	// 	lowercase: true,
-	// 	numbers: true,
-	// 	symbols: false,
-	// });
 	const handlePasswordGenerate = (
 		event: React.MouseEvent<HTMLButtonElement>,
 		value?: string,
 	) => {
 		event.preventDefault();
 		let newPassword = createPassword(
-			length,
+			range,
 			isUppercase,
 			isLowercase,
 			isNumber,
@@ -30,8 +25,37 @@ const Form = () => {
 	};
 	const handleLength = (event: ChangeEvent<HTMLInputElement>) => {
 		let value = event.target.value;
-		SetLength(parseInt(value));
+		setRange(parseInt(value));
 	};
+
+	useEffect(() => {
+		if (range < 10 && !isSymbol && !isNumber) {
+			setStrength('Too Weak');
+		} else if (
+			range < 16 &&
+			isUppercase &&
+			isLowercase &&
+			(!isNumber || !isSymbol)
+		) {
+			setStrength('Weak');
+		} else if (
+			range < 21 &&
+			isUppercase &&
+			isLowercase &&
+			(!isNumber || !isSymbol)
+		) {
+			setStrength('Medium');
+		} else if (
+			range <= 30 &&
+			isUppercase &&
+			isLowercase &&
+			isNumber &&
+			isSymbol
+		) {
+			setStrength('Strong');
+		}
+	}, [range, password]);
+
 	const handleCopy = () => {
 		if (password.length > 8) {
 			navigator.clipboard.writeText(password);
@@ -46,10 +70,10 @@ const Form = () => {
 			<div className=" flex justify-between p-4 sm:p-5 bg-darkGray ">
 				<input
 					type="result"
-					placeholder="P4$W0rD!"
+					placeholder="P4$5W0rD!"
 					value={password}
 					readOnly
-					className="text-base sm:text-2xl outline-none border-none placeholder:text-lightGray text-altWhite bg-darkGray w-full"
+					className="text-base sm:text-2xl font-bold outline-none border-none placeholder:text-lightGray text-altWhite bg-darkGray w-full"
 				/>
 				<button>
 					<FaCopy
@@ -65,7 +89,7 @@ const Form = () => {
 					className="flex justify-between">
 					Character Length{' '}
 					<span className="text-xl text-neonGreen font-bold sm:text-2xl">
-						{length}
+						{range}
 					</span>
 				</label>
 				<input
@@ -73,7 +97,7 @@ const Form = () => {
 					type="range"
 					min={8}
 					max={30}
-					value={length}
+					value={range}
 					onChange={handleLength}
 					className="accent-neonGreen mb-2"
 				/>
@@ -129,7 +153,9 @@ const Form = () => {
 					<p className="text-lightGray text-sm sm:text-base ">
 						Strength
 					</p>
-					<p className="text-altWhite sm:text-lg">Medium</p>
+					<p className={`{color}` ? 'text-altWhite' : 'sm:text-lg'}>
+						{strength}
+					</p>
 				</div>
 				<button
 					onClick={handlePasswordGenerate}
